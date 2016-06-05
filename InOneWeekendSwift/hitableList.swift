@@ -23,25 +23,25 @@ struct hitableList {
         var t: Float = 0
         var p = vec3(0, 0, 0)
         var normal = vec3(0, 0, 0)
+        var material: materialType?
         
-        var hitAnything = false
         var closestSoFar = tMax
         
         for i in 0..<list.count {
             
             if let rec = list[i].hit(r, tMin: tMin, tMax: closestSoFar) {
                 
-                hitAnything = true
                 closestSoFar = rec.t
                 
                 t = rec.t
                 p = rec.p
                 normal = rec.normal
+                material = rec.material
             }
         }
         
-        if hitAnything {
-            return hitRecord(t: t, p: p, normal: normal)
+        if let material = material {
+            return hitRecord(t: t, p: p, normal: normal, material: material)
         } else {
             return nil
         }

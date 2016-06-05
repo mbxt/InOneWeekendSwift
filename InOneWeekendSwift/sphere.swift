@@ -4,10 +4,12 @@ final class sphere: hitable {
     
     final let center: vec3
     final let radius: Float
+    final let material: materialType
     
-    init(center: vec3, radius: Float) {
+    init(center: vec3, radius: Float, material: materialType) {
         self.center = center
         self.radius = radius
+        self.material = material
     }
     
     final override func hit(r: ray, tMin: Float, tMax: Float) -> hitRecord? {
@@ -27,7 +29,7 @@ final class sphere: hitable {
                 let p = r.pointAtParameter(t)
                 let normal = (p - center) / radius
                 
-                return hitRecord(t: t, p: p, normal: normal)
+                return hitRecord(t: t, p: p, normal: normal, material: material)
             }
             
             temp = (-b + sqrt(discriminant)) / a
@@ -37,7 +39,7 @@ final class sphere: hitable {
                 let p = r.pointAtParameter(t)
                 let normal = (p - center) / radius
                 
-                return hitRecord(t: t, p: p, normal: normal)
+                return hitRecord(t: t, p: p, normal: normal, material: material)
             }
         }
         
