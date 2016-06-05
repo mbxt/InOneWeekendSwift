@@ -73,3 +73,46 @@ final class metal: materialType {
         }
     }
 }
+
+final class dielectric: materialType {
+    
+    final let ior: Float // Index of refraction, equivalent to the author's "ref_idx".
+    
+    init(ior: Float) {
+        self.ior = ior
+    }
+    
+    final override func scatter(rayIn: ray, record: hitRecord) -> (vec3, ray)? {
+        
+        var outwardNormal: vec3
+        let reflected = reflection(rayIn.direction, record.normal)
+        let attenuation = vec3(1, 1, 1)
+        
+        // Index of refraction of incident and transmitted media
+        var iorI: Float
+        var iorT: Float
+        
+        let iDotN = dot(rayIn.direction, record.normal)
+        
+        if iDotN > 0 {
+            outwardNormal = -record.normal
+            iorI = ior
+            iorT = 1.0
+        } else {
+            outwardNormal = record.normal
+            iorI = 1.0
+            iorT = ior
+        }
+        
+        if let refracted = refract(rayIn.direction, outwardNormal, iorI / iorT) {
+            
+            return (attenuation, ray(record.p, refracted))
+            
+        } else {
+            // See the author's comments on the return value of false here.
+            // While we can't simultaneously return false in our case (which is a nil tuple),
+            // we don't need to because later code will never return false.
+            return (attenuation, ray(record.p, reflected))
+        }
+    }
+}
