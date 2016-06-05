@@ -1,32 +1,14 @@
 import Foundation
 
-func hitSphere(center: vec3, radius: Float, r: ray) -> Float {
+func color(r: ray, world: hitableList) -> vec3 {
     
-    let oc = r.origin - center
-    let a = dot(r.direction, r.direction)
-    let b = 2.0 * dot(oc, r.direction)
-    let c = dot(oc, oc) - radius * radius
-    let discriminant = b * b - 4 * a * c
-    
-    if discriminant < 0 {
-        return -1.0
-    } else {
-        return (-b - sqrt(discriminant)) / (2.0 * a)
-    }
-}
-
-func color(r: ray) -> vec3 {
-    
-    var t = hitSphere(vec3(0, 0, -1), radius: 0.5, r: r)
-    
-    if t > 0 {
-        let N = (r.pointAtParameter(t) - vec3(0, 0, -1)).unitVector()
+    if let rec = world.hit(r, tMin: 0.0, tMax: MAXFLOAT) {
         
-        return 0.5 * vec3(N.x + 1, N.y + 1, N.z + 1)
+        return 0.5 * (rec.normal + vec3(1, 1, 1))
     }
     
     let unitDirection = r.direction.unitVector()
-    t = 0.5 * (unitDirection.y + 1.0)
+    let t = 0.5 * (unitDirection.y + 1.0)
     return (1.0 - t) * vec3(1, 1, 1) + t * vec3(0.5, 0.7, 1.0)
 }
 
@@ -42,6 +24,11 @@ let horizontal = vec3(4, 0, 0)
 let vertical = vec3(0, 2, 0)
 let origin = vec3(0, 0, 0)
 
+let world = hitableList(list: [
+    sphere(center: vec3(0, 0, -1), radius: 0.5),
+    sphere(center: vec3(0, -100.5, -1), radius: 100),
+    ])
+
 for j in (0..<ny).reverse() {
     for i in 0..<nx {
         
@@ -49,7 +36,7 @@ for j in (0..<ny).reverse() {
         let v = Float(j) / Float(ny)
         
         let r = ray(origin, lowerLeftCorner + u * horizontal + v * vertical)
-        let col = color(r)
+        let col = color(r, world: world)
         
         let ir = Int(255.99 * col.r)
         let ig = Int(255.99 * col.g)
