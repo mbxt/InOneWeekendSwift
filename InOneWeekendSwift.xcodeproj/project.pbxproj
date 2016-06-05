@@ -12,6 +12,7 @@
 		88D960781D03BD97003E154B /* ray.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88D960771D03BD97003E154B /* ray.swift */; };
 		88D9607A1D03C883003E154B /* hitable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88D960791D03C883003E154B /* hitable.swift */; };
 		88D9607C1D03CEBC003E154B /* sphere.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88D9607B1D03CEBC003E154B /* sphere.swift */; };
+		88D9607E1D03D011003E154B /* hitableList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88D9607D1D03D011003E154B /* hitableList.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -33,6 +34,7 @@
 		88D960771D03BD97003E154B /* ray.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ray.swift; sourceTree = "<group>"; };
 		88D960791D03C883003E154B /* hitable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = hitable.swift; sourceTree = "<group>"; };
 		88D9607B1D03CEBC003E154B /* sphere.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = sphere.swift; sourceTree = "<group>"; };
+		88D9607D1D03D011003E154B /* hitableList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = hitableList.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -70,6 +72,7 @@
 				88D960731D03B517003E154B /* vec3.swift */,
 				88D960791D03C883003E154B /* hitable.swift */,
 				88D9607B1D03CEBC003E154B /* sphere.swift */,
+				88D9607D1D03D011003E154B /* hitableList.swift */,
 			);
 			path = InOneWeekendSwift;
 			sourceTree = "<group>";
@@ -132,6 +135,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				88D960741D03B517003E154B /* vec3.swift in Sources */,
+				88D9607E1D03D011003E154B /* hitableList.swift in Sources */,
 				88D9607C1D03CEBC003E154B /* sphere.swift in Sources */,
 				88D9607A1D03C883003E154B /* hitable.swift in Sources */,
 				88D960781D03BD97003E154B /* ray.swift in Sources */,
