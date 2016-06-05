@@ -65,6 +65,7 @@ for j in (0..<ny).reverse() {
         }
         
         col /= Float(ns)
+        col = vec3(sqrt(col.r), sqrt(col.g), sqrt(col.b))
         
         let ir = Int(255.99 * col.r)
         let ig = Int(255.99 * col.g)
