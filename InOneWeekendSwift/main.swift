@@ -5,16 +5,29 @@ func frand() -> Float {
     return Float(drand48())
 }
 
+func randomInUnitSphere() -> vec3 {
+    
+    var p: vec3
+    repeat {
+        p = 2 * vec3(frand(), frand(), frand()) - vec3(1, 1, 1)
+    } while dot(p, p) >= 1
+    
+    return p
+}
+
 func color(r: ray, world: hitableList) -> vec3 {
     
     if let rec = world.hit(r, tMin: 0.0, tMax: MAXFLOAT) {
         
-        return 0.5 * (rec.normal + vec3(1, 1, 1))
+        let target = rec.p + rec.normal + randomInUnitSphere()
+        return 0.5 * color(ray(rec.p, target - rec.p), world: world)
+        
+    } else {
+        
+        let unitDirection = r.direction.unitVector()
+        let t = 0.5 * (unitDirection.y + 1.0)
+        return (1.0 - t) * vec3(1, 1, 1) + t * vec3(0.5, 0.7, 1.0)
     }
-    
-    let unitDirection = r.direction.unitVector()
-    let t = 0.5 * (unitDirection.y + 1.0)
-    return (1.0 - t) * vec3(1, 1, 1) + t * vec3(0.5, 0.7, 1.0)
 }
 
 
