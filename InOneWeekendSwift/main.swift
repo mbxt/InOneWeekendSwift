@@ -1,6 +1,22 @@
 import Foundation
 
+func hitSphere(center: vec3, radius: Float, r: ray) -> Bool {
+    
+    let oc = r.origin - center
+    let a = dot(r.direction, r.direction)
+    let b = 2 * dot(oc, r.direction)
+    let c = dot(oc, oc) - radius * radius
+    let discriminant = b * b - 4 * a * c
+    
+    return discriminant > 0
+}
+
 func color(r: ray) -> vec3 {
+    
+    if hitSphere(vec3(0, 0, -1), radius: 0.5, r: r) {
+        return vec3(1, 0, 0)
+    }
+    
     let unitDirection = r.direction.unitVector()
     let t = 0.5 * (unitDirection.y + 1.0)
     return (1.0 - t) * vec3(1, 1, 1) + t * vec3(0.5, 0.7, 1.0)
