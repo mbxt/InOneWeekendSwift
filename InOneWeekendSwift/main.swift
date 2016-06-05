@@ -45,19 +45,16 @@ let ns = 100
 
 print("P3\n\(nx) \(ny)\n255\n")
 
-let R = Float(cos(M_PI / 4))
 let world = hitableList(list: [
-//    sphere(center: vec3(0, 0, -1), radius: 0.5, material: lambertian(0.1, 0.2, 0.5)),
-//    sphere(center: vec3(0, -100.5, -1), radius: 100, material: lambertian(0.8, 0.8, 0.0)),
-//    sphere(center: vec3(1, 0, -1), radius: 0.5, material: metal(0.8, 0.6, 0.2, roughness: 0.3)),
-//    sphere(center: vec3(-1, 0, -1), radius: 0.5, material: dielectric(ior: 1.5)),
-//    sphere(center: vec3(-1, 0, -1), radius: -0.45, material: dielectric(ior: 1.5)),
-    sphere(center: vec3(-R, 0, -1), radius: R, material: lambertian(0, 0, 1)),
-    sphere(center: vec3(R, 0, -1), radius: R, material: lambertian(1, 0, 0)),
+    sphere(center: vec3(0, 0, -1), radius: 0.5, material: lambertian(0.1, 0.2, 0.5)),
+    sphere(center: vec3(0, -100.5, -1), radius: 100, material: lambertian(0.8, 0.8, 0.0)),
+    sphere(center: vec3(1, 0, -1), radius: 0.5, material: metal(0.8, 0.6, 0.2, roughness: 0.3)),
+    sphere(center: vec3(-1, 0, -1), radius: 0.5, material: dielectric(ior: 1.5)),
+    sphere(center: vec3(-1, 0, -1), radius: -0.45, material: dielectric(ior: 1.5)),
     ])
 
 let aspect = Float(nx) / Float(ny)
-let cam = camera(vFov: 90, aspect: aspect)
+let cam = camera(lookFrom: vec3(-2, 2, 1), lookAt: vec3(0, 0, -1), vUp: vec3(0, 1, 0), vFov: 90, aspect: aspect)
 
 for j in (0..<ny).reverse() {
     for i in 0..<nx {
