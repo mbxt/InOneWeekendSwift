@@ -95,3 +95,8 @@ func *(a: vec3, b: vec3) -> vec3 {
 func /(a: vec3, b: vec3) -> vec3 {
     return vec3(a.x / b.x, a.y / b.y, a.z / b.z)
 }
+
+// MARK: - Vector physics
+func reflection(v: vec3, _ n: vec3) -> vec3 {
+    return v - 2 * dot(v, n) * n
+}
