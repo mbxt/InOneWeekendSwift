@@ -100,3 +100,17 @@ func /(a: vec3, b: vec3) -> vec3 {
 func reflection(v: vec3, _ n: vec3) -> vec3 {
     return v - 2 * dot(v, n) * n
 }
+
+func refract(v: vec3, _ n: vec3, _ niOverNt: Float) -> vec3? {
+    
+    let uv = v.unitVector()
+    let dt = dot(uv, n)
+    
+    let discriminant = 1.0 - niOverNt * niOverNt * (1 - dt * dt)
+    
+    if discriminant > 0 {
+        return niOverNt * (uv - dt * n) - sqrt(discriminant) * n
+    } else {
+        return nil
+    }
+}
