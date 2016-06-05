@@ -54,7 +54,7 @@ let world = hitableList(list: [
     ])
 
 let aspect = Float(nx) / Float(ny)
-let cam = camera(lookFrom: vec3(-2, 2, 1), lookAt: vec3(0, 0, -1), vUp: vec3(0, 1, 0), vFov: 90, aspect: aspect)
+let cam = camera(lookFrom: vec3(-2, 2, 1), lookAt: vec3(0, 0, -1), vUp: vec3(0, 1, 0), vFov: 20, aspect: aspect)
 
 for j in (0..<ny).reverse() {
     for i in 0..<nx {
