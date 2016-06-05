@@ -74,6 +74,12 @@ final class metal: materialType {
     }
 }
 
+func schlick(cosine: Float, ior: Float) -> Float {
+    var r0 = (1 - ior) / (1 + ior)
+    r0 = r0 * r0
+    return r0 + (1 - r0) * pow((1 - cosine), 5)
+}
+
 final class dielectric: materialType {
     
     final let ior: Float // Index of refraction, equivalent to the author's "ref_idx".
