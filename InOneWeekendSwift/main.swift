@@ -51,10 +51,10 @@ let vertical = vec3(0, 2, 0)
 let origin = vec3(0, 0, 0)
 
 let world = hitableList(list: [
-    sphere(center: vec3(0, 0, -1), radius: 0.5, material: lambertian(0.8, 0.3, 0.3)),
+    sphere(center: vec3(0, 0, -1), radius: 0.5, material: lambertian(0.1, 0.2, 0.5)),
     sphere(center: vec3(0, -100.5, -1), radius: 100, material: lambertian(0.8, 0.8, 0.0)),
     sphere(center: vec3(1, 0, -1), radius: 0.5, material: metal(0.8, 0.6, 0.2, roughness: 0.0)),
-    sphere(center: vec3(-1, 0, -1), radius: 0.5, material: metal(0.8, 0.8, 0.8, roughness: 0.0)),
+    sphere(center: vec3(-1, 0, -1), radius: 0.5, material: dielectric(ior: 1.5)),
     ])
 
 let cam = camera()
