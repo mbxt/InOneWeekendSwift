@@ -44,24 +44,27 @@ final class lambertian: materialType {
 /*
  * For metal, I elect to use the term "specular" here in place of "albedo",
  * following suit of recent discussions/resources on physically based shading.
+ * Similarly, I elect to use "roughness" in place of "fuzz".
  */
 
 final class metal: materialType {
     
     final let specular: vec3
+    final let roughness: Float
     
-    init(specular: vec3) {
+    init(specular: vec3, roughness: Float) {
         self.specular = specular
+        self.roughness = roughness
     }
     
-    convenience init(_ x: Float, _ y: Float, _ z: Float) {
-        self.init(specular: vec3(x, y, z))
+    convenience init(_ x: Float, _ y: Float, _ z: Float, roughness: Float) {
+        self.init(specular: vec3(x, y, z), roughness: roughness)
     }
     
     final override func scatter(rayIn: ray, record: hitRecord) -> (vec3, ray)? {
         
         let reflected = reflection(rayIn.direction.unitVector(), record.normal)
-        let scattered = ray(record.p, reflected)
+        let scattered = ray(record.p, reflected + roughness * randomInUnitSphere())
         
         if dot(scattered.direction, record.normal) > 0 {
             return (specular, scattered)
