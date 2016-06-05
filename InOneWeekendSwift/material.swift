@@ -40,3 +40,33 @@ final class lambertian: materialType {
         return (albedo, scattered)
     }
 }
+
+/*
+ * For metal, I elect to use the term "specular" here in place of "albedo",
+ * following suit of recent discussions/resources on physically based shading.
+ */
+
+final class metal: materialType {
+    
+    final let specular: vec3
+    
+    init(specular: vec3) {
+        self.specular = specular
+    }
+    
+    convenience init(_ x: Float, _ y: Float, _ z: Float) {
+        self.init(specular: vec3(x, y, z))
+    }
+    
+    final override func scatter(rayIn: ray, record: hitRecord) -> (vec3, ray)? {
+        
+        let reflected = reflection(rayIn.direction.unitVector(), record.normal)
+        let scattered = ray(record.p, reflected)
+        
+        if dot(scattered.direction, record.normal) > 0 {
+            return (specular, scattered)
+        } else {
+            return nil
+        }
+    }
+}
