@@ -14,6 +14,7 @@
 		88D9607C1D03CEBC003E154B /* sphere.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88D9607B1D03CEBC003E154B /* sphere.swift */; };
 		88D9607E1D03D011003E154B /* hitableList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88D9607D1D03D011003E154B /* hitableList.swift */; };
 		88D960801D03DB1D003E154B /* camera.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88D9607F1D03DB1D003E154B /* camera.swift */; };
+		88D960821D03E29A003E154B /* material.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88D960811D03E29A003E154B /* material.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -37,6 +38,7 @@
 		88D9607B1D03CEBC003E154B /* sphere.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = sphere.swift; sourceTree = "<group>"; };
 		88D9607D1D03D011003E154B /* hitableList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = hitableList.swift; sourceTree = "<group>"; };
 		88D9607F1D03DB1D003E154B /* camera.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = camera.swift; sourceTree = "<group>"; };
+		88D960811D03E29A003E154B /* material.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = material.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -70,6 +72,7 @@
 			isa = PBXGroup;
 			children = (
 				8809BC081CFC08FD005FEA87 /* main.swift */,
+				88D960811D03E29A003E154B /* material.swift */,
 				88D9607F1D03DB1D003E154B /* camera.swift */,
 				88D960771D03BD97003E154B /* ray.swift */,
 				88D960731D03B517003E154B /* vec3.swift */,
@@ -137,6 +140,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				88D960821D03E29A003E154B /* material.swift in Sources */,
 				88D960741D03B517003E154B /* vec3.swift in Sources */,
 				88D9607E1D03D011003E154B /* hitableList.swift in Sources */,
 				88D9607C1D03CEBC003E154B /* sphere.swift in Sources */,
