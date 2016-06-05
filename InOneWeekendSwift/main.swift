@@ -45,6 +45,7 @@ let ns = 100
 
 print("P3\n\(nx) \(ny)\n255\n")
 
+// World
 let world = hitableList(list: [
     sphere(center: vec3(0, 0, -1), radius: 0.5, material: lambertian(0.1, 0.2, 0.5)),
     sphere(center: vec3(0, -100.5, -1), radius: 100, material: lambertian(0.8, 0.8, 0.0)),
@@ -53,9 +54,16 @@ let world = hitableList(list: [
     sphere(center: vec3(-1, 0, -1), radius: -0.45, material: dielectric(ior: 1.5)),
     ])
 
+// Camera
 let aspect = Float(nx) / Float(ny)
-let cam = camera(lookFrom: vec3(-2, 2, 1), lookAt: vec3(0, 0, -1), vUp: vec3(0, 1, 0), vFov: 20, aspect: aspect)
+let lookFrom = vec3(3, 3, 2)
+let lookAt = vec3(0, 0, -1)
+let distToFocus = (lookFrom - lookAt).length()
+let aperture: Float = 2.0
 
+let cam = camera(lookFrom: lookFrom, lookAt: lookAt, vUp: vec3(0, 1, 0), vFov: 20, aspect: aspect, aperture: aperture, focusDist: distToFocus)
+
+// Ray trace
 for j in (0..<ny).reverse() {
     for i in 0..<nx {
         
