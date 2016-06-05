@@ -39,27 +39,21 @@ func color(r: ray, world: hitableList, depth: Int) -> vec3 {
 
 
 // MARK: - Main
-let nx = 200
-let ny = 100
-let ns = 100
+let nx = 600
+let ny = 400
+let ns = 256
 
 print("P3\n\(nx) \(ny)\n255\n")
 
 // World
-let world = hitableList(list: [
-    sphere(center: vec3(0, 0, -1), radius: 0.5, material: lambertian(0.1, 0.2, 0.5)),
-    sphere(center: vec3(0, -100.5, -1), radius: 100, material: lambertian(0.8, 0.8, 0.0)),
-    sphere(center: vec3(1, 0, -1), radius: 0.5, material: metal(0.8, 0.6, 0.2, roughness: 0.3)),
-    sphere(center: vec3(-1, 0, -1), radius: 0.5, material: dielectric(ior: 1.5)),
-    sphere(center: vec3(-1, 0, -1), radius: -0.45, material: dielectric(ior: 1.5)),
-    ])
+let world = randomScene()
 
 // Camera
 let aspect = Float(nx) / Float(ny)
-let lookFrom = vec3(3, 3, 2)
-let lookAt = vec3(0, 0, -1)
+let lookFrom = vec3(14, 2, 4)
+let lookAt = vec3(0, 0, 0)
 let distToFocus = (lookFrom - lookAt).length()
-let aperture: Float = 2.0
+let aperture: Float = 0.05
 
 let cam = camera(lookFrom: lookFrom, lookAt: lookAt, vUp: vec3(0, 1, 0), vFov: 20, aspect: aspect, aperture: aperture, focusDist: distToFocus)
 
