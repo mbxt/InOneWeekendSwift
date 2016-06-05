@@ -3,3 +3,6 @@ build/
 *.pbxuser
 *.xccheckout
 xcuserdata/
+
+binary
+*.ppm
