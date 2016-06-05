@@ -99,26 +99,32 @@ final class dielectric: materialType {
         var iorT: Float
         
         let iDotN = dot(rayIn.direction, record.normal)
+        var cosine: Float
         
         if iDotN > 0 {
             outwardNormal = -record.normal
             iorI = ior
             iorT = 1.0
+            cosine = ior * iDotN / rayIn.direction.length()
         } else {
             outwardNormal = record.normal
             iorI = 1.0
             iorT = ior
+            cosine = -iDotN / rayIn.direction.length()
         }
         
+        // Note that the use of optionals requires the code to be written differently.
         if let refracted = refract(rayIn.direction, outwardNormal, iorI / iorT) {
             
-            return (attenuation, ray(record.p, refracted))
+            if Float(drand48()) < schlick(cosine, ior: ior) {
+                return (attenuation, ray(origin: record.p, direction: reflected))
+            } else {
+                return (attenuation, ray(origin: record.p, direction: refracted))
+            }
             
         } else {
-            // See the author's comments on the return value of false here.
-            // While we can't simultaneously return false in our case (which is a nil tuple),
-            // we don't need to because later code will never return false.
-            return (attenuation, ray(record.p, reflected))
+            
+            return (attenuation, ray(origin: record.p, direction: reflected))
         }
     }
 }
