@@ -1,5 +1,10 @@
 import Foundation
 
+// We use frand to avoid typing `Float(drand48())` in a bunch of places.
+func frand() -> Float {
+    return Float(drand48())
+}
+
 func color(r: ray, world: hitableList) -> vec3 {
     
     if let rec = world.hit(r, tMin: 0.0, tMax: MAXFLOAT) {
@@ -16,6 +21,7 @@ func color(r: ray, world: hitableList) -> vec3 {
 // MARK: - Main
 let nx = 200
 let ny = 100
+let ns = 100
 
 print("P3\n\(nx) \(ny)\n255\n")
 
@@ -29,14 +35,23 @@ let world = hitableList(list: [
     sphere(center: vec3(0, -100.5, -1), radius: 100),
     ])
 
+let cam = camera()
+
 for j in (0..<ny).reverse() {
     for i in 0..<nx {
         
-        let u = Float(i) / Float(nx)
-        let v = Float(j) / Float(ny)
+        var col = vec3(0, 0, 0)
         
-        let r = ray(origin, lowerLeftCorner + u * horizontal + v * vertical)
-        let col = color(r, world: world)
+        for s in 0..<ns {
+            
+            let u = (Float(i) + frand()) / Float(nx)
+            let v = (Float(j) + frand()) / Float(ny)
+            
+            let r = cam.getRay(u, v)
+            col += color(r, world: world)
+        }
+        
+        col /= Float(ns)
         
         let ir = Int(255.99 * col.r)
         let ig = Int(255.99 * col.g)
