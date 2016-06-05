@@ -19,3 +19,24 @@ class materialType {
         return nil
     }
 }
+
+final class lambertian: materialType {
+    
+    final let albedo: vec3
+    
+    init(albedo: vec3) {
+        self.albedo = albedo
+    }
+    
+    convenience init(_ x: Float, _ y: Float, _ z: Float) {
+        self.init(albedo: vec3(x, y, z))
+    }
+    
+    final override func scatter(rayIn: ray, record: hitRecord) -> (vec3, ray)? {
+        
+        let target = record.p + record.normal + randomInUnitSphere()
+        let scattered = ray(record.p, target - record.p)
+        
+        return (albedo, scattered)
+    }
+}
