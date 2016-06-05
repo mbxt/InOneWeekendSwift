@@ -5,11 +5,13 @@ struct hitRecord {
     let t: Float
     let p: vec3
     let normal: vec3
+    let material: materialType
     
-    init(t: Float, p: vec3, normal: vec3) {
+    init(t: Float, p: vec3, normal: vec3, material: materialType) {
         self.t = t
         self.p = p
         self.normal = normal
+        self.material = material
     }
 }
 
