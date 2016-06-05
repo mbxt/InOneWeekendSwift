@@ -15,12 +15,19 @@ func randomInUnitSphere() -> vec3 {
     return p
 }
 
-func color(r: ray, world: hitableList) -> vec3 {
+func color(r: ray, world: hitableList, depth: Int) -> vec3 {
     
-    if let rec = world.hit(r, tMin: 0.0, tMax: MAXFLOAT) {
+    if let rec = world.hit(r, tMin: 0.001, tMax: MAXFLOAT) {
         
-        let target = rec.p + rec.normal + randomInUnitSphere()
-        return 0.5 * color(ray(rec.p, target - rec.p), world: world)
+        if depth < 50 {
+            
+            if let (attenuation, scattered) = rec.material.scatter(r, record: rec) {
+                
+                return attenuation * color(scattered, world: world, depth: depth + 1)
+            }
+        }
+        
+        return vec3(0, 0, 0)
         
     } else {
         
@@ -61,7 +68,7 @@ for j in (0..<ny).reverse() {
             let v = (Float(j) + frand()) / Float(ny)
             
             let r = cam.getRay(u, v)
-            col += color(r, world: world)
+            col += color(r, world: world, depth: 0)
         }
         
         col /= Float(ns)
